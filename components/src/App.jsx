@@ -1,9 +1,11 @@
-import ButtonListPage from "./pages/ButtonListPage";
+import AccordionPage from "./pages/AccordionPage";
+// import ButtonListPage from "./pages/ButtonListPage";
 
 const App = () => {
   return (
     <>
-      <ButtonListPage />
+      {/* <ButtonListPage /> */}
+      <AccordionPage />
     </>
   );
 };
