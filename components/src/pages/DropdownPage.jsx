@@ -41,11 +41,9 @@ const DropdownPage = () => {
   ];
 
   const handleSelection = (option) => {
-    console.log(option);
     setSelecedState(option);
   };
   const handleSelection2 = (option) => {
-    console.log(option);
     setSelecedState2(option);
   };
 

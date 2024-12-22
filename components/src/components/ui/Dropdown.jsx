@@ -13,7 +13,6 @@ const Dropdown = ({ options, value, onChange }) => {
     setIsOpen(false);
 
     // SELECTED OPTION
-    console.log(option);
     onChange(option);
   };
 
