@@ -5,28 +5,28 @@ import { NavigationProvider } from "./context/navigation";
 import DropdownPage from "./pages/DropdownPage";
 import AccordionPage from "./pages/AccordionPage";
 import ButtonListPage from "./pages/ButtonListPage";
-import Link from "./components/Link";
 import Route from "./components/Route";
+import Sidebar from "./components/ui/Sidebar";
 
 const App = () => {
   return (
     <ErrorBoundary>
       <NavigationProvider>
-        {/* 
-          <ButtonListPage />
-          <AccordionPage />
-          <DropdownPage /> 
-        */}
-
-        {/* Link component usage */}
-        <Link to="/accordion">Accordion</Link>
-        <Link to="/dropdown">Dropdown</Link>
-        
-        {/* Route component usage */}
-        <Route path="/accordion"><AccordionPage /></Route>
-        <Route path="/dropdown"><DropdownPage /></Route>
-        <Route path="/buttons-list"><ButtonListPage /></Route>
-
+        <div className="container mx-auto mt-4 grid grid-cols-6 gap-4 h-[90vh]">
+          <Sidebar />
+          <div className="w-full bg-gray-50 col-span-5 p-4">
+            {/* Route component usage */}
+            <Route path="/accordion">
+              <AccordionPage />
+            </Route>
+            <Route path="/">
+              <DropdownPage />
+            </Route>
+            <Route path="/buttons">
+              <ButtonListPage />
+            </Route>
+          </div>
+        </div>
       </NavigationProvider>
     </ErrorBoundary>
   );

@@ -3,15 +3,15 @@ import Button from "../components/ui/Button";
 
 const ButtonListPage = () => {
   function handleClick() {
-    alert("Button is clicked!!!");
+    console.log("Button is clicked!!!");
   }
 
   function handleMouseLeave() {
-    alert("Button has MouseLeave!!!");
+    console.log("Button has MouseLeave!!!");
   }
 
   function handleMouseEnter() {
-    alert("Button has mouse enter!!!");
+    console.log("Button has mouse enter!!!");
   }
 
   return (
@@ -25,7 +25,7 @@ const ButtonListPage = () => {
       <div>
         <Button secondary onMouseEnter={handleMouseEnter}>
           <GoDownload />
-          Simple button
+          onMouseEnter button
         </Button>
       </div>
       <div>
