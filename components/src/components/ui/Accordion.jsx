@@ -35,7 +35,7 @@ const Accordion = ({ items }) => {
     );
   });
 
-  return <ul className="rounded border-x border-t">{renderedItems}</ul>;
+  return <ul className="rounded border-x border-t mx-auto w-1/2">{renderedItems}</ul>;
 };
 
 export default Accordion;

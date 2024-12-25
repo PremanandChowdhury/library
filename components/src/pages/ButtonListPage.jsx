@@ -15,7 +15,7 @@ const ButtonListPage = () => {
   }
 
   return (
-    <>
+    <div className="flex justify-center gap-2">
       <div>
         <Button className="mb-5" primary onClick={handleClick}>
           <GoBell />
@@ -49,7 +49,7 @@ const ButtonListPage = () => {
           Simple button
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
