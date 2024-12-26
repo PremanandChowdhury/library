@@ -1,26 +1,29 @@
 import PropTypes from "prop-types";
 
-const Table = ({ data }) => {
-  const keys = Object.keys(data[0]);
+const Table = ({ data, config, getKeyFn }) => {
   const renderHeader = () => (
     <tr>
-      {keys.map((key) => (
-        <th key={key} className="border p-3">
-          {key.charAt(0).toUpperCase() + key.slice(1)}
+      {config.map((column) => (
+        <th key={column.label} className="border p-3">
+          {column.label}
         </th>
       ))}
     </tr>
   );
 
-  const renderRow = data.map((item, index) => (
-    <tr className="p-3" key={item.name + index}>
-      <td className="border p-3">{item.name}</td>
-      <td className="border p-3">
-        <div className={`mx-auto h-5 w-5 rounded-full ${item.color}`}></div>
+  const renderRow = data.map((rowData) => {
+    const renderedCells = config.map((column) => (
+      <td key={column.label} className="border p-3">
+        {column.render(rowData)}
       </td>
-      <td className="border p-3">{item.score}</td>
-    </tr>
-  ));
+    ));
+
+    return (
+      <tr className="p-3" key={getKeyFn(rowData)}>
+        {renderedCells}
+      </tr>
+    );
+  });
 
   return (
     <>
@@ -34,6 +37,8 @@ const Table = ({ data }) => {
 
 Table.propTypes = {
   data: PropTypes.array.isRequired,
+  config: PropTypes.array.isRequired,
+  getKeyFn: PropTypes.func.isRequired,
 };
 
 export default Table;
