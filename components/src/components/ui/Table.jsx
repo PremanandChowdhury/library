@@ -1,15 +1,14 @@
 import PropTypes from "prop-types";
+import { Fragment } from "react";
 
 const Table = ({ data, config, getKeyFn }) => {
-  const renderHeader = () => (
-    <tr>
-      {config.map((column) => (
-        <th key={column.label} className="border p-3">
-          {column.label}
-        </th>
-      ))}
-    </tr>
-  );
+  const renderHeader = config.map((column) => {
+    if (column.header) {
+      return <Fragment key={column.label}>{column.header()}</Fragment>;
+    }
+
+    return <th className="border p-3" key={column.label}>{column.label}</th>;
+  });
 
   const renderRow = data.map((rowData) => {
     const renderedCells = config.map((column) => (
@@ -28,7 +27,9 @@ const Table = ({ data, config, getKeyFn }) => {
   return (
     <>
       <table className="w-full table-auto border-spacing-2">
-        <thead>{renderHeader()}</thead>
+        <thead>
+          <tr>{renderHeader}</tr>
+        </thead>
         <tbody>{renderRow}</tbody>
       </table>
     </>
