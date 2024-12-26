@@ -8,6 +8,7 @@ import ButtonListPage from "./pages/ButtonListPage";
 import Route from "./components/Route";
 import Sidebar from "./components/ui/Sidebar";
 import ModalPage from "./pages/ModalPage";
+import TablePage from "./pages/TablePage";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
             </Route>
             <Route path="/modal">
               <ModalPage />
+            </Route>
+            <Route path="/table">
+              <TablePage />
             </Route>
           </div>
         </div>
