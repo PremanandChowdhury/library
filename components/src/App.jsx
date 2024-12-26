@@ -7,6 +7,7 @@ import AccordionPage from "./pages/AccordionPage";
 import ButtonListPage from "./pages/ButtonListPage";
 import Route from "./components/Route";
 import Sidebar from "./components/ui/Sidebar";
+import ModalPage from "./pages/ModalPage";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
             </Route>
             <Route path="/buttons">
               <ButtonListPage />
+            </Route>
+            <Route path="/modal">
+              <ModalPage />
             </Route>
           </div>
         </div>
