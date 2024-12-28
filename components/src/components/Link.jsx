@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 // Local imports
-import useNavigation from "../hooks/use-navigation";
+import useNavigation from "../hooks/useNavigation";
 
 const Link = ({ to, children, className, activeClassName }) => {
   const { navigate, currentPath } = useNavigation();

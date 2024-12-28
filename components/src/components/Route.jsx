@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // Local imports
-import useNavigation from '../hooks/use-navigation';
+import useNavigation from '../hooks/useNavigation';
 
 const Route = ({path, children}) => {
     const {currentPath } = useNavigation();
