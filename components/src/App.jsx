@@ -9,6 +9,7 @@ import Route from "./components/Route";
 import Sidebar from "./components/ui/Sidebar";
 import ModalPage from "./pages/ModalPage";
 import TablePage from "./pages/TablePage";
+import CounterPage from "./pages/CounterPage";
 
 const App = () => {
   return (
@@ -32,6 +33,9 @@ const App = () => {
             </Route>
             <Route path="/table">
               <TablePage />
+            </Route>
+            <Route path="/counter">
+              <CounterPage intitialCount={10}/>
             </Route>
           </div>
         </div>
