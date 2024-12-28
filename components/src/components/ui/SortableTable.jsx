@@ -1,6 +1,4 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
-
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
@@ -8,30 +6,11 @@ import {
 
 // Local imports
 import Table from "./Table";
+import useSort from "../../hooks/useSort";
 
 const SortableTable = (props) => {
-  const [sortOrder, setSortOrder] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
-
   const { config, data } = props;
-
-  // Function to handle the click event
-  const handleClick = (label) => {
-    if (sortBy && label !== sortBy) {
-      setSortOrder("asc");
-      setSortBy(label);
-    }
-
-    if (sortOrder === null) {
-      setSortOrder("asc");
-      setSortBy(label);
-    } else if (sortOrder === "asc") {
-      setSortOrder("desc");
-    } else if (sortOrder === "desc") {
-      setSortOrder(null);
-      setSortBy(null);
-    }
-  };
+  const { sortBy, sortOrder, setSortColumn, sortedData } = useSort(data, config);
 
   // Updated coonfig array with header function
   const updatedConfig = config.map((column) => {
@@ -45,7 +24,7 @@ const SortableTable = (props) => {
         return (
           <th
             className="cursor-pointer border p-3 hover:bg-gray-100"
-            onClick={() => handleClick(column.label)}
+            onClick={() => setSortColumn(column.label)}
           >
             <div className="flex items-center gap-1">
               {getIcons(column.label, sortOrder, sortBy)}
@@ -56,28 +35,6 @@ const SortableTable = (props) => {
       },
     };
   });
-
-  // sort only whern sortOrder and sortBy are not null
-  // Make  a copy of the 'data' from the prop
-  // Find the correct sortValue function and use it for sorting
-
-  let sortedData = data;
-  if (sortOrder && sortBy) {
-    const { sortValue } = config.find((column) => column.label === sortBy);
-
-    sortedData = [...data].sort((a, b) => {
-      const valueA = sortValue(a);
-      const valueB = sortValue(b);
-
-      const reverseOrder = sortOrder === "asc" ? 1 : -1;
-
-      if (typeof valueA === "string") {
-        return valueA.localeCompare(valueB) * reverseOrder;
-      } else if (typeof valueA === "number") {
-        return (valueA - valueB) * reverseOrder;
-      }
-    });
-  }
 
   return (
     <div>
@@ -113,10 +70,12 @@ SortableTable.propTypes = {
   props: PropTypes.object,
   config: PropTypes.arrayOf(
     PropTypes.shape({
-      sortValue: PropTypes.any,
+      label: PropTypes.string.isRequired,
+      render: PropTypes.func,
+      sortValue: PropTypes.func,
     }),
   ).isRequired,
-  data: PropTypes.arrayOf(PropTypes.any),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SortableTable;
