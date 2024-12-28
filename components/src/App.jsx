@@ -10,14 +10,15 @@ import Sidebar from "./components/ui/Sidebar";
 import ModalPage from "./pages/ModalPage";
 import TablePage from "./pages/TablePage";
 import CounterPage from "./pages/CounterPage";
+import CounterPage2 from "./pages/CounterPage2";
 
 const App = () => {
   return (
     <ErrorBoundary>
       <NavigationProvider>
-        <div className="container mx-auto mt-4 grid grid-cols-6 gap-4 h-[90vh]">
+        <div className="container mx-auto mt-4 grid h-[90vh] grid-cols-6 gap-4">
           <Sidebar />
-          <div className="w-full bg-gray-50 col-span-5 p-4">
+          <div className="col-span-5 w-full bg-gray-50 p-4">
             {/* Route component usage */}
             <Route path="/accordion">
               <AccordionPage />
@@ -35,7 +36,10 @@ const App = () => {
               <TablePage />
             </Route>
             <Route path="/counter">
-              <CounterPage intitialCount={10}/>
+              <CounterPage intitialCount={10} />
+            </Route>
+            <Route path="/counter2">
+              <CounterPage2 initialCount={10} />
             </Route>
           </div>
         </div>
