@@ -1,15 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-
-interface Car {
-  name: string;
-  cost: number;
-  id: string; // UUID
-}
-
-interface CarState {
-  searchTerm: string;
-  cars: Car[];
-}
+import { CarState } from "../../typings/interfaces";
 
 const initialState: CarState = {
   searchTerm: "",

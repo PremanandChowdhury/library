@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface FormState {
-  name: string;
-  cost: number;
-}
+import { FormState } from "../../typings/interfaces";
 
 const initialState: FormState = {
   name: "",
