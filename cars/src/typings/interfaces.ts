@@ -11,5 +11,5 @@ export interface Car {
 
 export interface CarState {
   searchTerm: string;
-  cars: Car[];
+  entities: Car[];
 }

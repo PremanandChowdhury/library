@@ -3,7 +3,7 @@ import { CarState } from "../../typings/interfaces";
 
 const initialState: CarState = {
   searchTerm: "",
-  cars: [],
+  entities: [],
 };
 
 const carSlice = createSlice({
@@ -15,17 +15,17 @@ const carSlice = createSlice({
     },
     addCar: (state, action: PayloadAction<{ name: string; cost: number }>) => {
       const { name, cost } = action.payload;
-      state.cars.push({
+      state.entities.push({
         name,
         cost,
         id: nanoid(),
       });
     },
     removeCar: (state, action: PayloadAction<string>) => {
-      const updatedCars = state.cars.filter((car) => {
+      const updatedCars = state.entities.filter((car) => {
         return car.id !== action.payload;
       });
-      state.cars = updatedCars;
+      state.entities = updatedCars;
     },
   },
 });
