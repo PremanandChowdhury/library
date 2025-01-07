@@ -1,9 +1,9 @@
-const App = () => {
+import UsersList from "./components/UsersList";
+
+const App: React.FC = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-3xl font-bold text-orange-500">
-        Welcome to visual media app
-      </h1>
+    <div className="container mx-auto">
+      <UsersList />
     </div>
   );
 };

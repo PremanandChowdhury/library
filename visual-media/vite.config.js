@@ -15,6 +15,16 @@ export default defineConfig({
     },
     react(),
   ],
+  alias: {
+    resolve: {
+      alias: {
+        "@": "/src",
+        "@components": "/src/components",
+        "@types": "/src/typings/types",
+        "@thunk": "/src/store/thunks"
+      },
+    },
+  },
   server: {
     port: 3000,
   },
