@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Local imports
-import { AppDispatch, fetchUsers } from "../store";
+import { AppDispatch, fetchUsers, addUser } from "../store";
 import { IFetchResponse, User } from "@/typings";
 import Skeleton from "./Skeleton";
+import Button from "./Button";
 
 const UsersList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -13,13 +14,17 @@ const UsersList: React.FC = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
+  const handleAddUser = (): void => {
+    dispatch(addUser());
+  };
+
   const { isLoading, data, error } = useSelector(
-    (state: { users: IFetchResponse }) => {
+    (state: { users: IFetchResponse }): IFetchResponse => {
       return state.users;
     }
   );
 
-  if (isLoading) return <Skeleton times={4} className="h-10 w-full" />;
+  if (isLoading) return <Skeleton times={3} className="h-10 w-full" />;
   if (error) return <div>Failed loading list of Users</div>;
 
   const renderUsersData = data.map((user: User) => {
@@ -32,7 +37,15 @@ const UsersList: React.FC = () => {
     );
   });
 
-  return <>{renderUsersData}</>;
+  return (
+    <div>
+      <div className="flex justify-between my-3">
+        <h1 className="mb-2 text-xl">Users</h1>
+        <Button onClick={handleAddUser}>+ Add User</Button>
+      </div>
+      {renderUsersData}
+    </div>
+  );
 };
 
 export default UsersList;

@@ -10,8 +10,19 @@ const fetchUsers = createAsyncThunk(
   "users/fetch",
   async (): Promise<User[]> => {
     const response = await axios.get(usersUrl);
-    return response.data;;
+
+    // DEV PURPOSE
+    await pause(2000);
+
+    return response.data;
   }
 );
+
+// DEV PURPOSE
+const pause = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
+  });
+};
 
 export { fetchUsers };

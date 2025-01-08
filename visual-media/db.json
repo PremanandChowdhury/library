@@ -1,5 +1,18 @@
 {
-  "users": [{ "id": 1, "name": "Prem" }],
+  "users": [
+    {
+      "id": "1",
+      "name": "Prem"
+    },
+    {
+      "id": "7874",
+      "name": "Beulah Wunsch"
+    },
+    {
+      "id": "658b",
+      "name": "Madeline Pfannerstill"
+    }
+  ],
   "albums": [],
   "photos": []
 }
