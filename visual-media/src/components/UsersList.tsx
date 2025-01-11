@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // Local imports
-import { AppDispatch, fetchUsers, addUser } from "../store";
+import { fetchUsers, addUser } from "@/store";
 import { IFetchResponse, User } from "@/typings";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
+import useThunk from "@/hooks/useThunk";
 
 const UsersList: React.FC = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState<boolean>(true);
-  const [loadingUsersError, setLoadingUsersError] = useState<null | Error>(
-    null
-  );
-  const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false);
-  const [creatingUserError, setIsCreatingUserError] = useState<null | Error>(
-    null
-  );
-
-  const dispatch: AppDispatch = useDispatch();
+  const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+  const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
 
   useEffect(() => {
-    dispatch(fetchUsers())
-      .unwrap()
-      .catch((err) => setLoadingUsersError(err))
-      .finally(() => setIsLoadingUsers(false));
-  }, [dispatch]);
+    doFetchUsers();
+  }, []);
 
   const handleAddUser = (): void => {
-    setIsCreatingUser(true);
-    dispatch(addUser())
-      .unwrap()
-      .catch((err) => setIsCreatingUserError(err))
-      .finally(() => setIsCreatingUser(false));
+    doCreateUser();
   };
 
   const { data } = useSelector(
@@ -40,33 +27,33 @@ const UsersList: React.FC = () => {
     }
   );
 
-  if (isLoadingUsers) return <Skeleton times={3} className="h-10 w-full" />;
-  if (loadingUsersError) return <div>Failed loading list of Users</div>;
-
-  const renderUsersData = data.map((user: User) => {
-    return (
-      <div key={user.id} className="mb-2 border rounded mt-2">
-        <div className="flex p-2 justify-between items-center cursor-pointer">
-          {user.name}
+  let content;
+  if (isLoadingUsers) {
+    content = <Skeleton times={10} className="h-10 w-full" />;
+  } else if (loadingUsersError) {
+    content = <div>Failed loading list of Users</div>;
+  } else {
+    content = data?.map((user: User) => {
+      return (
+        <div key={user.id} className="mb-2 border rounded mt-2">
+          <div className="flex p-2 justify-between items-center cursor-pointer">
+            {user.name}
+          </div>
         </div>
-      </div>
-    );
-  });
+      );
+    });
+  }
 
   return (
     <div>
       <div className="flex justify-between my-3">
         <h1 className="mb-2 text-xl">Users</h1>
-        {isCreatingUser ? (
-          "Creating User"
-        ) : (
-          <Button onClick={handleAddUser}>+ Add User</Button>
-        )}
-        {
-          creatingUserError && 'Error while creating user...'
-        }
+        <Button loading={isCreatingUser} onClick={handleAddUser}>
+          + Add User
+        </Button>
+        {creatingUserError && "Error while creating user..."}
       </div>
-      {renderUsersData}
+      {content}
     </div>
   );
 };
