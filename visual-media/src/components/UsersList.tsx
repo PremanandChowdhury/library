@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Local imports
@@ -8,24 +8,40 @@ import Skeleton from "./Skeleton";
 import Button from "./Button";
 
 const UsersList: React.FC = () => {
+  const [isLoadingUsers, setIsLoadingUsers] = useState<boolean>(true);
+  const [loadingUsersError, setLoadingUsersError] = useState<null | Error>(
+    null
+  );
+  const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false);
+  const [creatingUserError, setIsCreatingUserError] = useState<null | Error>(
+    null
+  );
+
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers())
+      .unwrap()
+      .catch((err) => setLoadingUsersError(err))
+      .finally(() => setIsLoadingUsers(false));
   }, [dispatch]);
 
   const handleAddUser = (): void => {
-    dispatch(addUser());
+    setIsCreatingUser(true);
+    dispatch(addUser())
+      .unwrap()
+      .catch((err) => setIsCreatingUserError(err))
+      .finally(() => setIsCreatingUser(false));
   };
 
-  const { isLoading, data, error } = useSelector(
+  const { data } = useSelector(
     (state: { users: IFetchResponse }): IFetchResponse => {
       return state.users;
     }
   );
 
-  if (isLoading) return <Skeleton times={3} className="h-10 w-full" />;
-  if (error) return <div>Failed loading list of Users</div>;
+  if (isLoadingUsers) return <Skeleton times={3} className="h-10 w-full" />;
+  if (loadingUsersError) return <div>Failed loading list of Users</div>;
 
   const renderUsersData = data.map((user: User) => {
     return (
@@ -41,7 +57,14 @@ const UsersList: React.FC = () => {
     <div>
       <div className="flex justify-between my-3">
         <h1 className="mb-2 text-xl">Users</h1>
-        <Button onClick={handleAddUser}>+ Add User</Button>
+        {isCreatingUser ? (
+          "Creating User"
+        ) : (
+          <Button onClick={handleAddUser}>+ Add User</Button>
+        )}
+        {
+          creatingUserError && 'Error while creating user...'
+        }
       </div>
       {renderUsersData}
     </div>
