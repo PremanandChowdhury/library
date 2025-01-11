@@ -1,4 +1,5 @@
 import className from "classnames";
+import { GoSync } from "react-icons/go";
 
 type AtLeastOne<T, U = keyof T> = U extends keyof T
   ? Pick<T, U> & Partial<Omit<T, U>>
@@ -16,6 +17,7 @@ type ButtonVariants = {
   success?: boolean;
   warning?: boolean;
   danger?: boolean;
+  loading?: boolean;
 };
 
 type ButtonProps = BaseButtonProps & AtLeastOne<ButtonVariants>;
@@ -29,12 +31,14 @@ const Button: React.FC<ButtonProps> = ({
   danger,
   outline,
   rounded,
+  loading,
   ...rest
 }): JSX.Element => {
   const classes = className(
     rest.className,
-    "flex items-center px-3 py-1.5 border",
+    "flex items-center px-3 py-1.5 border h-8",
     {
+      "opacity-80": loading,
       "border-blue-500 bg-blue-500 text-white": primary,
       "border-gray-900 bg-gray-900 text-white": secondary,
       "border-green-500 bg-green-500 text-white": success,
@@ -51,8 +55,8 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   return (
-    <button {...rest} className={classes}>
-      {children}
+    <button {...rest} disabled={loading} className={classes}>
+      {loading ? <GoSync className="animate-spin" /> : children}
     </button>
   );
 };
