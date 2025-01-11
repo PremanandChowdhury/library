@@ -15,14 +15,14 @@ export default defineConfig({
     },
     react(),
   ],
-  alias: {
-    resolve: {
-      alias: {
-        "@": "/src",
-        "@components": "/src/components",
-        "@types": "/src/typings/types",
-        "@thunk": "/src/store/thunks"
-      },
+  resolve: {
+    alias: {
+      "@": "/src",
+      "@components": "/src/components",
+      "@types": "/src/typings/types",
+      "@thunk": "/store/thunks",
+      "@hooks": "/src/hooks",
+      "@util": "/src/util"
     },
   },
   server: {

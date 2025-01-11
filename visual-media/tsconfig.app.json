@@ -27,7 +27,9 @@
       "@/*": ["*"],
       "@components/*": ["components/*"],
       "@types": ["typings/types"],
-      "@thunk": ["store/thunks"]
+      "@thunk": ["store/thunks"],
+      "@hooks": ["hooks"],
+      "@util": ["util"]
     }
   },
   "include": ["src"]

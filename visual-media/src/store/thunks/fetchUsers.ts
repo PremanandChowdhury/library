@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { pause } from "../../util/pause";
 
 // Local imports
 import { User } from "@/typings";
+import { pause } from "@/util/pause";
 
 const usersUrl = import.meta.env.VITE_USERS_URL;
 
