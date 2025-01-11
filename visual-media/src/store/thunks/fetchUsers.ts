@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { pause } from "../../util/pause";
 
 // Local imports
 import { User } from "@/typings";
@@ -17,12 +18,5 @@ const fetchUsers = createAsyncThunk(
     return response.data;
   }
 );
-
-// DEV PURPOSE
-const pause = (duration: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, duration);
-  });
-};
 
 export { fetchUsers };
