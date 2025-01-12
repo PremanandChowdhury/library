@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 // Local imports
 import { fetchUsers, addUser } from "@/store";
 import { IFetchResponse, User } from "@/typings";
+import useThunk from "@/hooks/useThunk";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
-import useThunk from "@/hooks/useThunk";
+import UsersListItem from "./UsersListItem";
 
 const UsersList: React.FC = () => {
   const [doFetchUsers, isLoadingUsers, loadingUsersError] =
@@ -15,7 +16,7 @@ const UsersList: React.FC = () => {
 
   useEffect(() => {
     doFetchUsers();
-  }, []);
+  }, [doFetchUsers]);
 
   const handleAddUser = (): void => {
     doCreateUser();
@@ -34,13 +35,7 @@ const UsersList: React.FC = () => {
     content = <div>Failed loading list of Users</div>;
   } else {
     content = data?.map((user: User) => {
-      return (
-        <div key={user.id} className="mb-2 border rounded mt-2">
-          <div className="flex p-2 justify-between items-center cursor-pointer">
-            {user.name}
-          </div>
-        </div>
-      );
+      return <UsersListItem key={user.id} user={user} />;
     });
   }
 
@@ -54,6 +49,7 @@ const UsersList: React.FC = () => {
         {creatingUserError && "Error while creating user..."}
       </div>
       {content}
+      {isCreatingUser && <Skeleton times={1} className="h-10 w-full" />}
     </div>
   );
 };
