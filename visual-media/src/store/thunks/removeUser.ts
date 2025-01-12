@@ -5,7 +5,7 @@ import axios from "axios";
 import { User } from "@/typings";
 const usersAPI = import.meta.env.VITE_USERS_URL;
 
-const removeUser = createAsyncThunk("user/remov", async (user: User) => {
+const removeUser = createAsyncThunk("user/remove", async (user: User) => {
   const deleteURL = `${usersAPI}/${user.id}`;
 
   await axios.delete(deleteURL);

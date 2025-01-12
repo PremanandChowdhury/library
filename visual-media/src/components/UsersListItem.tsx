@@ -6,6 +6,7 @@ import { User } from "@/typings";
 import { removeUser } from "@/store";
 import useThunk from "@/hooks/useThunk";
 import Button from "./Button";
+import ExpandablePanel from "./ExpandablePanel";
 
 interface Props {
   user: User;
@@ -18,26 +19,25 @@ const UsersListItem: React.FC<Props> = ({ user }) => {
     doRemoveUser(user);
   };
 
-  return (
-    <div
-      key={user.id}
-      className={`mb-2 border rounded mt-2 ${error && "bg-red-100"}`}
-    >
-      <div className="flex p-2 justify-between items-center cursor-pointer border">
-        <div className="flex gap-3">
-          <Button loading={isLoading} onClick={handleRemoveUser}>
-            <GoTrashcan />
-          </Button>
-          {error ? (
-            <div>
-              Error deleting User <i className="underline">{user.name}</i>
-            </div>
-          ) : (
-            user.name
-          )}
+  const header = (
+    <>
+      <Button loading={isLoading} onClick={handleRemoveUser}>
+        <GoTrashcan />
+      </Button>
+      {error ? (
+        <div>
+          Error deleting User <i className="underline">{user.name}</i>
         </div>
-      </div>
-    </div>
+      ) : (
+        user.name
+      )}
+    </>
+  );
+
+  return (
+    <ExpandablePanel header={header} error={error}>
+      <p>content</p>
+    </ExpandablePanel>
   );
 };
 
