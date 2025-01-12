@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { usersStateProps, User } from "@/typings";
 import { fetchUsers } from "../thunks/fetchUsers";
 import { addUser } from "../thunks/addUser";
+import { removeUser } from "../thunks/removeUser";
 
 const initialState: usersStateProps = {
   data: [],
@@ -47,6 +48,27 @@ const UserSlice = createSlice({
       state.isLoading = false;
       state.error = action.error as Error;
     });
+
+    // Remove User Data
+    builder.addCase(removeUser.pending, (state: usersStateProps): void => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      removeUser.fulfilled,
+      (state: usersStateProps, action: PayloadAction<User>): void => {
+        state.isLoading = false;
+        state.data = state.data.filter((item) => {
+          return item.id !== action.payload.id;
+        });
+      }
+    );
+    builder.addCase(
+      removeUser.rejected,
+      (state: usersStateProps, action): void => {
+        state.isLoading = false;
+        state.error = action.error as Error;
+      }
+    );
   },
 });
 
