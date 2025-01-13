@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const AlbumsApi = createApi({
-  reducerPath: "albumsApi",
+const albumsApi = createApi({
+  reducerPath: "albums",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
@@ -25,5 +25,5 @@ const AlbumsApi = createApi({
   },
 });
 
-export const { useFetchAlbumsQuery } = AlbumsApi;
-export { AlbumsApi };
+export const { useFetchAlbumsQuery } = albumsApi;
+export { albumsApi };

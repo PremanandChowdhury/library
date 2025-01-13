@@ -13,30 +13,28 @@
       "name": "Madeline Pfannerstill"
     },
     {
-      "id": "fe80",
-      "name": "Rosemary Marvin"
+      "id": "3bce",
+      "name": "Ernesto Hahn"
     },
     {
-      "id": "05ee",
-      "name": "Miss Sonja Muller"
+      "id": "f0da",
+      "name": "Keith McKenzie"
     },
     {
-      "id": "5daf",
-      "name": "Alfred Shanahan"
+      "id": "f93d",
+      "name": "Amy Gleason Sr."
     },
     {
-      "id": "68ce",
-      "name": "Rick Sawayn"
-    },
-    {
-      "id": "f4fe",
-      "name": "Lucy Upton"
-    },
-    {
-      "id": "2de7",
-      "name": "Jerald Robel"
+      "id": "99d2",
+      "name": "Vincent Lesch"
     }
   ],
-  "albums": [],
+  "albums": [
+    {
+      "id": "2fc",
+      "title": "hking Trip",
+      "userId": 1
+    }
+  ],
   "photos": []
 }
