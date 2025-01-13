@@ -7,6 +7,7 @@ import { removeUser } from "@/store";
 import useThunk from "@/hooks/useThunk";
 import Button from "./Button";
 import ExpandablePanel from "./ExpandablePanel";
+import AlbumsList from "./AlbumsList";
 
 interface Props {
   user: User;
@@ -36,7 +37,7 @@ const UsersListItem: React.FC<Props> = ({ user }) => {
 
   return (
     <ExpandablePanel header={header} error={error}>
-      <p>content</p>
+      <AlbumsList user={user} />
     </ExpandablePanel>
   );
 };
