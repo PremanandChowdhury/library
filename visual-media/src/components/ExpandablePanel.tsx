@@ -3,7 +3,7 @@ import { GoChevronDown, GoChevronLeft } from "react-icons/go";
 
 interface Props {
   header: JSX.Element;
-  error: null | Error;
+  error?: null | Error;
   children: JSX.Element;
 }
 
