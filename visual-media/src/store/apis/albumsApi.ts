@@ -1,5 +1,9 @@
 import { User } from "@/typings";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { faker } from "@faker-js/faker";
+
+// Local imports
+import { pause } from "@/util/pause";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -7,10 +11,38 @@ const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
+    fetchFn: async (...args): Promise<Response> => {
+      await pause(1000);
+      return fetch(...args);
+    },
   }),
+  tagTypes: ["Album"],
   endpoints(builder) {
     return {
-      fetchAlbums: builder.query({
+      addAlbum: builder.mutation<void, User>({
+        invalidatesTags: (result, error, user) => {
+          return [
+            {
+              type: "Album",
+              id: user.id,
+            },
+          ];
+        },
+        query: (user: User) => {
+          return {
+            url: "/albums",
+            method: "POST",
+            body: {
+              userId: user.id,
+              title: faker.commerce.productName(),
+            },
+          };
+        },
+      }),
+      fetchAlbums: builder.query<any[], User>({
+        providesTags: (result, error, user) => {
+          return [{ type: "Album", id: user.id }];
+        },
         query: (user: User) => {
           return {
             url: "/albums",
@@ -25,5 +57,5 @@ const albumsApi = createApi({
   },
 });
 
-export const { useFetchAlbumsQuery } = albumsApi;
+export const { useFetchAlbumsQuery, useAddAlbumMutation } = albumsApi;
 export { albumsApi };
