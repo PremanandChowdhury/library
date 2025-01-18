@@ -1,7 +1,7 @@
 import { SerializedError } from "@reduxjs/toolkit";
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
 };
 
@@ -18,6 +18,10 @@ export interface IFetchResponse {
 }
 
 export interface IAlbum {
-  id: number;
+  id: string;
   title: string;
+}
+export interface ITag {
+  type: string;
+  id: string;
 }

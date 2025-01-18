@@ -1,4 +1,4 @@
-import { User } from "@/typings";
+import { IAlbum, User } from "@/typings";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { faker } from "@faker-js/faker";
 
@@ -16,12 +16,12 @@ const albumsApi = createApi({
       return fetch(...args);
     },
   }),
-  tagTypes: ["Album"],
+  tagTypes: ["Album", "UsersAlbums"],
   endpoints(builder) {
     return {
       removeAlbum: builder.mutation({
         invalidatesTags: (result, error, album) => {
-          return [{ type: "Album", id: album.userId }];
+          return [{ type: "Album", id: album.id }];
         },
         query: (album) => {
           return {
@@ -34,7 +34,7 @@ const albumsApi = createApi({
         invalidatesTags: (result, error, user) => {
           return [
             {
-              type: "Album",
+              type: "UsersAlbums" as const,
               id: user.id,
             },
           ];
@@ -50,9 +50,15 @@ const albumsApi = createApi({
           };
         },
       }),
-      fetchAlbums: builder.query<any[], User>({
+      fetchAlbums: builder.query({
         providesTags: (result, error, user) => {
-          return [{ type: "Album", id: user.id }];
+          const tags =
+            result?.map((album: IAlbum) => ({
+              type: "Album" as const,
+              id: album.id,
+            })) || [];
+          // A generic tag for the user's albums
+          return [...tags, { type: "UsersAlbums" as const, id: user.id }];
         },
         query: (user: User) => {
           return {

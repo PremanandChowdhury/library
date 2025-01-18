@@ -12,11 +12,11 @@ interface Props {
 }
 
 const AlbumsList: React.FC<Props> = ({ user }) => {
-  const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const { data, error, isFetching } = useFetchAlbumsQuery(user);
   const [addAlbum, results] = useAddAlbumMutation();
 
   let content;
-  if (isLoading) {
+  if (isFetching) {
     content = <Skeleton className="h-10 w-fulll" times={3} />;
   } else if (error) {
     content = <div>Error while loading albums.</div>;
@@ -30,13 +30,6 @@ const AlbumsList: React.FC<Props> = ({ user }) => {
     addAlbum(user);
   };
 
-  console.log(
-    JSON.stringify(data, null, 2),
-    "\n Error ",
-    error,
-    "\n isLoading ",
-    isLoading
-  );
   return (
     <div>
       <div className="m-2 flex items-center justify-between">
