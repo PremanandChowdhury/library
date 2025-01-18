@@ -16,3 +16,8 @@ export interface IFetchResponse {
   error: SerializedError | null;
   isLoading: boolean;
 }
+
+export interface IAlbum {
+  id: number;
+  title: string;
+}

@@ -4,22 +4,27 @@ import { GoTrashcan } from "react-icons/go";
 // Local imports
 import Button from "./Button";
 import ExpandablePanel from "./ExpandablePanel";
+import { useRemoveAlbumMutation } from "@/store";
+import { IAlbum } from "@/typings";
 
 interface Album {
-  album: {
-    id: number;
-    title: string;
-  };
+  album: IAlbum;
 }
 
 const AlbumsListItem: React.FC<Album> = ({ album }): JSX.Element => {
+  const [removeAlbum, results] = useRemoveAlbumMutation();
+
+  const handleRemoveAlbum = () => {
+    removeAlbum(album);
+  };
+
   const header = (
-    <div className="flex justify-center items-center gap-3">
-      <Button>
+    <>
+      <Button loading={results.isLoading} onClick={handleRemoveAlbum}>
         <GoTrashcan />
       </Button>
       {album.title}
-    </div>
+    </>
   );
 
   return (

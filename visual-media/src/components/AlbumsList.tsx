@@ -1,7 +1,7 @@
 import React from "react";
 
 // Local imports
-import { User } from "@/typings";
+import { IAlbum, User } from "@/typings";
 import { useAddAlbumMutation, useFetchAlbumsQuery } from "@/store";
 import Button from "./Button";
 import Skeleton from "./Skeleton";
@@ -9,11 +9,6 @@ import AlbumsListItem from "./AlbumListItem";
 
 interface Props {
   user: User;
-}
-
-interface Album {
-  id: number;
-  title: string;
 }
 
 const AlbumsList: React.FC<Props> = ({ user }) => {
@@ -26,7 +21,7 @@ const AlbumsList: React.FC<Props> = ({ user }) => {
   } else if (error) {
     content = <div>Error while loading albums.</div>;
   } else {
-    content = data?.map((album: Album) => {
+    content = data?.map((album: IAlbum) => {
       return <AlbumsListItem key={album.id} album={album} />;
     });
   }
