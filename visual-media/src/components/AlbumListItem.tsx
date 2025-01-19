@@ -6,6 +6,7 @@ import Button from "./Button";
 import ExpandablePanel from "./ExpandablePanel";
 import { useRemoveAlbumMutation } from "@/store";
 import { IAlbum } from "@/typings";
+import PhotosList from "@components/PhotosList";
 
 interface Album {
   album: IAlbum;
@@ -29,7 +30,7 @@ const AlbumsListItem: React.FC<Album> = ({ album }): JSX.Element => {
 
   return (
     <ExpandablePanel key={album.id} header={header}>
-      <p>List of Photos related to the album.</p>
+      <PhotosList album={album} />
     </ExpandablePanel>
   );
 };
