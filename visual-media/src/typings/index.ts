@@ -25,3 +25,9 @@ export interface ITag {
   type: string;
   id: string;
 }
+
+export interface IPhoto {
+  id: string;
+  url: string;
+  albumId: string;
+}
