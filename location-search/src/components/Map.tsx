@@ -12,17 +12,6 @@ interface MapProps {
   place: Place | null;
 }
 
-// function MapContent({ place }: MapProps) {
-//   const map = useMap();
-//   console.log("map center:", map.getCenter());
-//   return (
-//     <>
-//       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />;
-//       {place && <Marker position={[place.latitude, place.longitude]} />}
-//     </>
-//   );
-// }
-
 export default function Map({ place }: MapProps) {
   const mapRef = useRef<LeafletMap | null>(null);
 
